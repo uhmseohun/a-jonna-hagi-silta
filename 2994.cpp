@@ -44,19 +44,19 @@ int main () {
     }
  
     // output
-    int minv = INT_MAX;
+    set <ipair> rq;
     for (auto i=q.begin(); i!=q.end(); ++i) {
-        minv = min(minv, (*i).second);
+        rq.insert(make_pair((*i).second, (*i).first));
     }
-    printf("%d\n", minv+b);
-    vector <int> pp;
-    for (auto i=q.begin(); i!=q.end(); ++i) {
-        if ((*i).second == minv) pp.push_back((*i).first);
+    int min_dist = (*rq.begin()).first;
+    printf("%d\n", min_dist+b);
+    vector <int> poses;
+    for (auto i=rq.begin(); i!=rq.end(); ++i) {
+        if ((*i).first == min_dist) poses.push_back((*i).second);
     }
-    printf("%d ", pp.size());
-    for (int &p: pp) {
-        printf("%d ", p);
+    printf("%d ", poses.size());
+    for (auto &pos: poses) {
+        printf("%d ", pos);
     }
-    printf("\n");
     return 0;
 }
