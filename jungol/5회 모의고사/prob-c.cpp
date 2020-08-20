@@ -15,6 +15,8 @@ const int _size = 100005;
 int n;
 vector<int> u[_size];
 bool c[_size];
+int d[2][_size][20];
+
 
 int longest_node(int src) {
     memset(c, false, sizeof(c));
@@ -34,30 +36,22 @@ int longest_node(int src) {
     return f;
 }
 
-int p[2][_size];
-
 void dfs(int node, int type) {
     for(int k: u[node]) {
         if(c[k]) continue;
         c[k] = true;
-        p[type][k] = node;
+        d[type][k][0] = node;
         dfs(k, type);
     }
 }
 
 void generate_tree(int root, int type) {
     memset(c, false, sizeof(c));
-    p[type][root] = 0;
     c[root] = true;
     dfs(root, type);
 }
 
-int d[2][_size][20];
-
 void generate_table(int type) {
-    for(int i=1; i<=n; ++i) {
-        d[type][i][0] = p[type][i];
-    }
     for(int j=1; j<20; ++j) {
         for(int i=1; i<=n; ++i) {
             int val = d[type][i][j-1];
